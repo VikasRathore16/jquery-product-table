@@ -1,4 +1,4 @@
-const Array=[];
+/* const Array=[];
 
 //fetching input field data
 function fetch(){
@@ -76,8 +76,28 @@ function editForm(productId){
     console.log(1)
     
    
-}
+} */
+
 
 $(document).ready(function(){
-    $
+    var Array=[];
+    console.log(1)
+    $('#add_product').click(function(){
+        var productSku= $("#product_sku").val();
+        console.log(productSku)
+        var productName=$("#product_name").val();
+        var productPrice = $("#product_price").val();
+        var productQuantity = $("#product_quantity").val();
+        Array.push({
+            'productSku' : productSku,
+            'productName' : productName,
+             'productPrice': productPrice,
+             'productQuantity': productQuantity
+        })
+        console.log(Array)
+    })
+    $('#update_product').click(function(){
+        console.log(2)
+        $('.update').hide()
+    })
 })
