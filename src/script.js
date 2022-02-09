@@ -2,6 +2,12 @@ var products = [];
 
 $(document).ready(function () {
     $(".update").hide();
+    $(".success").hide();
+    $(".error").hide();
+    $('.close').click(function (){
+        $(".success").hide();
+    $(".error").hide();
+    })
     console.log(1)
     $('#add_product').click(function () {
         var productSku = $("#product_sku").val();
@@ -12,7 +18,7 @@ $(document).ready(function () {
         if (checkData(productSku, productName, productPrice, productQuantity) == 0) {
             append(productSku, productName, productPrice, productQuantity);
             display();
-
+            $(".success").show();
             console.log(products)
             console.log("hello ");
         }
@@ -22,6 +28,7 @@ $(document).ready(function () {
 
 function edit() {
     $("#product_list").on("click", "#edit", function () {
+        $(".success").hide();
         $(".submit").hide();
         $(".update").show();
         console.log("clicked.");
@@ -37,10 +44,13 @@ function edit() {
 }
 $("#product_list").on("click", "#delete", function () {
     var productSku = $(this).data('productsku');
-    for (var i = 0; i < products.length; i++) {
-        if (productSku == products[i].productSku) {
-            products.splice(i,1)
+    if(confirm("Are you Sure? You Want to delete it.")==true){
+        for (var i = 0; i < products.length; i++) {
+            if (productSku == products[i].productSku) {
+                products.splice(i,1)
+            }
         }
+
     }
     console.log(products + "products")
     display()
@@ -67,6 +77,7 @@ $('#update_product').on("click",(function(){
         product.productPrice =productPrice;
         product.productQuantity=productQuantity;
         display()
+        $(".success").show();
         console.log(products);
     }))
 
@@ -105,24 +116,7 @@ function display() {
 
     console.log(data);
     $("#product_list").html(data);
-    /* var product = fetch();
-    if(checkData(product.productSku,product.productName,product.productPrice,product.productQuantity)==0){
-            products.push(product);
-            var table = document.getElementById('mytable');
-            var row = table.insertRow(-1);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            var cell4 = row.insertCell(3);
-            var cell5 = row.insertCell(4);
-            for(var i=0; i<products.length ; i++){
-                cell1.innerHTML = products[i].productSku;
-                cell2.innerHTML = products[i].productName;
-                cell3.innerHTML = "USD " + products[i].productPrice;
-                cell4.innerHTML = products[i].productQuantity;
-                cell5.innerHTML = '<a id="edit" data-productSku = '+products[i].productSku +' href="#" >Edit</a> <a href="#" id="delete" data-productSku = '+products[i].productSku +' " >Delete</a>';
-            }
-        } */
+    
 }
 //checking Data types of input field
 
