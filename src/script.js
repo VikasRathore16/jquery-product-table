@@ -6,7 +6,7 @@ $(document).ready(function () {
     $(".error").hide();
     $('.close').click(function (){
         $(".success").hide();
-    $(".error").hide();
+        $(".error").hide();
     })
     console.log(1)
     $('#add_product').click(function () {
@@ -78,6 +78,9 @@ $('#update_product').on("click",(function(){
         product.productQuantity=productQuantity;
         display()
         $(".success").show();
+        $(".submit").show();
+        $("#product_sku").attr("readonly", false).css({"background-color": "white","border-style":"groove"});
+        $(".update").hide();
         console.log(products);
     }))
 
@@ -122,29 +125,37 @@ function display() {
 
 function checkData(productSku, productName, productPrice, productQuantity) {
     var flag = 0;
+    $(".success").hide();
     for (var i = 0; i < products.length; i++) {
         if (productSku == products[i].productSku) {
             flag = 1;
-            console.log("Sku should be unique");
+            alert("Sku should be unique");
+           
+            $(".error").show();
         }
     }
     if (isNaN(productSku)) {
         flag = 1;
-        console.log("Product Id should be integer");
+        alert("Product Id should be integer");
+        $(".error").show();
     }
     console.log(typeof (productName))
     if (!isNaN(productName)) {
         flag = 1;
-        console.log("Product Name should be String")
+        alert("Product Name should be String");
+        $(".error").show();
     }
     if (isNaN(productPrice)) {
         flag = 1;
-        console.log("Product Price should be Number")
+        alert("Product Price should be Number");
+        $(".error").show();
     }
     if (isNaN(productQuantity)) {
         flag = 1;
-        console.log("Product Quantity should be Number")
+        alert("Product Quantity should be Number");
+        $(".error").show();
     }
+    $(".error").hide();
 
     return flag;
 
