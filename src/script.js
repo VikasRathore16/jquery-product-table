@@ -1,33 +1,3 @@
-/* const products=[];
-
-//fetching input field data
-function fetch(){
-    var productSku= document.getElementById("product_sku").value;
-    var productName=document.getElementById("product_name").value;
-    var productPrice = document.getElementById("product_price").value;
-    var productQuantity = document.getElementById("product_quantity").value;
-    
-    return {"productSku" : productSku,
-            "productName" : productName,
-        "productPrice" : productPrice,
-    "productQuantity" : productQuantity};
-}
-
-
-
-
-
-
-//adding new product in the products function
-function addProduct(){
-   display();
-}
-function editForm(productId){
-    console.log(1)
-    
-   
-} */
-
 var products = [];
 
 $(document).ready(function () {
@@ -51,7 +21,6 @@ $(document).ready(function () {
 })
 
 function edit() {
-
     $("#product_list").on("click", "#edit", function () {
         $(".submit").hide();
         $(".update").show();
@@ -66,6 +35,16 @@ function edit() {
         $("#product_quantity").val(product.productQuantity);
     });
 }
+$("#product_list").on("click", "#delete", function () {
+    var productSku = $(this).data('productsku');
+    for (var i = 0; i < products.length; i++) {
+        if (productSku == products[i].productSku) {
+            products.splice(i,1)
+        }
+    }
+    console.log(products + "products")
+    display()
+})
 //getProduct
 function getProduct(productSku) {
     for (var i = 0; i < products.length; i++) {
@@ -74,6 +53,23 @@ function getProduct(productSku) {
         }
     }
 }
+
+
+$('#update_product').on("click",(function(){
+        console.log("update")
+        var productSku = $("#product_sku").val();
+        var product = getProduct(productSku)
+        var productName = $("#product_name").val();
+        var productPrice = $("#product_price").val();
+        var productQuantity = $("#product_quantity").val();
+        product.productSku =productSku;
+        product.productName =productName;
+        product.productPrice =productPrice;
+        product.productQuantity=productQuantity;
+        display()
+        console.log(products);
+    }))
+
 //products append
 function append(productSku, productName, productPrice, productQuantity) {
     products.push({
@@ -133,7 +129,7 @@ function display() {
 function checkData(productSku, productName, productPrice, productQuantity) {
     var flag = 0;
     for (var i = 0; i < products.length; i++) {
-        if (productSku = products[i].productSku) {
+        if (productSku == products[i].productSku) {
             flag = 1;
             console.log("Sku should be unique");
         }
@@ -160,3 +156,32 @@ function checkData(productSku, productName, productPrice, productQuantity) {
 
 
 }
+
+
+
+
+/* const products=[];
+
+//fetching input field data
+function fetch(){
+    var productSku= document.getElementById("product_sku").value;
+    var productName=document.getElementById("product_name").value;
+    var productPrice = document.getElementById("product_price").value;
+    var productQuantity = document.getElementById("product_quantity").value;
+    
+    return {"productSku" : productSku,
+            "productName" : productName,
+        "productPrice" : productPrice,
+    "productQuantity" : productQuantity};
+}
+
+
+//adding new product in the products function
+function addProduct(){
+   display();
+}
+function editForm(productId){
+    console.log(1)
+    
+   
+} */
